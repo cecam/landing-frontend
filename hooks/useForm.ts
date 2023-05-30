@@ -10,8 +10,12 @@ const useForm = (initialState:any = {}) => {
             [event.target.name] : event.target.value
         })
     }
+
+    const clearState = () => {
+        setState(initialState);
+    }
     
-    return [ state, handleChange ];
+    return [ state, handleChange, clearState ];
 }
 
 export default useForm;

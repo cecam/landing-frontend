@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout:FC<LayoutProps> = ({children}) => {
     return (
-        <main className="h-screen grid place-items-center px-5">
+        <main className="h-screen grid place-items-center">
             {children}
         </main>
     )

@@ -1,3 +1,4 @@
+import Form from '@/components/SocialMedia/Form';
 import Box from '@/components/SocialMedia/Box';
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
 
         <h1 className="text-3xl font-bold text-[#333]">Celso Cárdenas</h1>
         <p className=" text-lg tracking-wide text-center text-[#4e4e4e]">Hola soy Cecam, la leyenda del código y distraído profesional</p>
+        <Form />
       </div>
 
       <div>
