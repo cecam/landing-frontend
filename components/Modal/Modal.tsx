@@ -41,7 +41,7 @@ const Modal:FC<IProps> = ({ handleClose, text }) => {
                 animate="visible"
                 exit="exit"
             >
-
+                {text}
             </motion.div>
         </Backdrop>
     )

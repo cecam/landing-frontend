@@ -7,12 +7,29 @@ const Box = () => {
     return (
         <ul className="grid w-full gap-6 p-5 lg:grid-cols-2 max-h-[480px] overflow-y-scroll">
             <ButtonWrapper>
-                <BarLink />
+                <BarLink
+                    link='youtube.com/cecam3'
+                    image='youtube-icon.svg'
+                    title='YouTube'
+                    description='Viajes, ocurrencias y desarrollos'
+                />
             </ButtonWrapper>
-            <BarLink />
-            <BarLink />
-            <BarLink />
-            <BarLink />
+            <ButtonWrapper>
+                <BarLink
+                    link='youtube.com/cecam3'
+                    image='youtube-icon.svg'
+                    title='YouTube'
+                    description='Viajes, ocurrencias y desarrollos'
+                />
+            </ButtonWrapper>
+            <ButtonWrapper>
+                <BarLink
+                    link='youtube.com/cecam3'
+                    image='youtube-icon.svg'
+                    title='YouTube'
+                    description='Viajes, ocurrencias y desarrollos'
+                />
+            </ButtonWrapper>
         </ul>
     )
 }
