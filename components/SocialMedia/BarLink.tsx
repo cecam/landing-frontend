@@ -15,7 +15,7 @@ const BarLink:FC<IProps> = ({link, image, title, description}) => (
             target="_blank"
         >
             <img src={image} alt="youtube icon" className="w-10 h-10 ml-3" />
-            <div className="block px-2">
+            <div className="block px-2 w-full">
                 <p className="w-full text-center text-lg md:text-start font-semibold">{title}</p>
                 <p className="w-full text-center md:text-start">{description}</p>
             </div>
