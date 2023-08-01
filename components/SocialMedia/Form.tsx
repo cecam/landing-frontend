@@ -1,24 +1,55 @@
 'use client'
 
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { FormEvent, useState } from "react";
 
-const variants = {
-  open: { opacity: 1, x: 0 },
-  closed: { opacity: 0, x: "-100%" },
-}
+import useForm from "@/hooks/useForm"
+import supabase from '@/utils/supabaseClient';
+
+import NewLink from "./NewLink";
 
 const Form = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [ showForm, setShowForm ] = useState<Boolean>(false)
+  const [ formState, handleChange ] = useForm({
+    title: '',
+    url: '',
+  });
+  const { title, url } = formState;
+
+  const addNewLink = async(e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      const { data, error } = await supabase.from('links').insert({
+        title,
+        url,
+        user_id: (await supabase.auth.getUser()).data.user?.id
+      })
+
+      if(error) throw error
+      console.log('data: ', data)
+      setShowForm(false)
+
+    } catch (error) {
+      throw error
+    }
+  }
 
   return (
-    <motion.nav
-      animate={isOpen ? "open" : "closed"}
-      variants={variants}
-    >
-      <button onClick={() => setIsOpen(isOpen => !isOpen)}>aham </button>
-      
-    </motion.nav>
+    <>
+      {showForm 
+        ? <NewLink 
+            handleChange={handleChange}
+            handleSubmit={addNewLink}
+            title={title}
+            url={url}
+          />
+        : <button
+          type="button"          
+          onClick={() => setShowForm(true)}
+          className="w-full rounded-lg border uppercase border-orange-500 text-orange-500 transition-all duration-100 hover:border-2 hover:font-bold focus:text-white focus:bg-orange-300 py-3"
+          >Crear link </button>
+          
+      }
+    </>
   )
 }
 

@@ -1,7 +1,8 @@
 import Form from '@/components/SocialMedia/Form';
 import Box from '@/components/SocialMedia/Box';
+import withAuth from '@/HOC/auth';
 
-export default function Home() {
+const Home = () => {
   return (
     <section className="flex flex-col md:flex-row">
       <div className="max-h-[480px] grid grid-col place-items-center gap-3 p-5">
@@ -18,3 +19,5 @@ export default function Home() {
     </section>
   )
 }
+
+export default Home

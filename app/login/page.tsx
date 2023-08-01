@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 
 import RegisterForm from "@/components/Login/RegisterForm";
@@ -8,6 +8,8 @@ import LoginForm from "@/components/Login/LoginForm";
 
 import supabase from "@/utils/supabaseClient";
 import useForm from "@/hooks/useForm";
+import withAuth from "@/HOC/auth";
+import UserContext from "@/contexts/userContext";
 
 interface IEmailPassword {
     email: string,
@@ -15,6 +17,7 @@ interface IEmailPassword {
 }
 
 const LoginPage = () => {
+    const { setUser } = useContext(UserContext);
     const [ formStatus, setFormStatus  ] = useState('login');
     const router = useRouter();
     const [ formState, handleChange ] = useForm({
@@ -31,7 +34,9 @@ const LoginPage = () => {
             if(resp.error) throw resp.error
 
             const userID = resp.data.user?.id;
-            router.push('/');
+            const user = await supabase.auth.getUser(userID)
+            localStorage.setItem('user', JSON.stringify(user));
+            router.push('/admin');
         } catch (error) {
             throw error
         }
@@ -41,11 +46,14 @@ const LoginPage = () => {
         e.preventDefault()
 
         try {
-            const resp = await supabase.auth.signUp({email, password})
+            const resp = await supabase.auth.signInWithPassword({email, password})
             if(resp.error) throw resp.error
 
             const userID = resp.data.user?.id;
-            router.push('/');
+            setUser(userID)
+            const user = await supabase.auth.getUser()
+            localStorage.setItem('user', JSON.stringify(user));
+            router.push('/admin');
         } catch (error) {
             throw error
         }
@@ -75,4 +83,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+export default withAuth(LoginPage);

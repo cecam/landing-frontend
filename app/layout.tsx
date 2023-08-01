@@ -1,6 +1,8 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 
+import { UserContextProvider } from '@/contexts/userContext'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -13,9 +15,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  console.log('hola desde main layout')
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <UserContextProvider>
+        <body className={inter.className}>{children}</body>
+      </UserContextProvider>
     </html>
   )
 }

@@ -1,28 +1,39 @@
 'use client'
 
-import useForm from "@/hooks/useForm";
+import { ChangeEvent, FC, FormEvent } from "react";
 
 import Input from "../Input";
+import Button from "../Button";
 
-const NewLink = () => {
-    const [ state, handleChange, clear ] = useForm({
-        name: ''
-    })
-    
+interface IProps {
+    handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>,
+    handleChange: (event: ChangeEvent<HTMLInputElement>) => void,
+    title: string,
+    url: string
+}
+
+const NewLink:FC<IProps> = ({handleSubmit, handleChange, title, url}) => {    
     return (
-        <form action="">
-            <input 
-                type="text" 
+        <form onSubmit={handleSubmit}>
+            <Input 
+                id="title"
+                name="title"
+                type="text"
+                labelText="Título del link"
+                placeholder="Ej. Youtube"
                 onChange={handleChange}
-                value={state.name}
-
+                value={title}
             />
-            <button
-                type="submit"
-                
-            >
-
-            </button>
+            <Input 
+                id="url"
+                name="url"
+                type="text"
+                labelText="Link al sitio web"
+                placeholder="Ej. https://www.twitch.tv/tu_usuario"
+                onChange={handleChange}
+                value={url}
+            />
+            <Button type="submit" text="Crear" /> 
         </form>
     )
 }
